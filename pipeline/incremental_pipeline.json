@@ -7,13 +7,13 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Lookup1",
+						"activity": "Set variable1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					},
 					{
-						"activity": "Set variable1",
+						"activity": "Lookup1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -31,7 +31,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from @{pipeline().parameters.schema}.@{pipeline().parameters.table} where @{pipeline().parameters.cdc_col} > activity('Lookup1').output.value[0].cdc_col",
+							"value": "select * from @{pipeline().parameters.schema}.@{pipeline().parameters.table} where @{pipeline().parameters.cdc_col} > activity('Lookup1').output.value[0].cdc",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -128,6 +128,42 @@
 						"value": "@utcNow()",
 						"type": "Expression"
 					}
+				}
+			},
+			{
+				"name": "max_cdc",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": {
+								"value": "select MAX(@{pipeline().parameters.cdc_col}) as cdc from @{pipeline().parameters.schema}.@{pipeline().parameters.table}",
+								"type": "Expression"
+							}
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
 				}
 			}
 		],
