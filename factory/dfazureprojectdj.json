@@ -1,0 +1,9 @@
+{
+	"name": "dfazureprojectdj",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3c111d81-19b9-4e08-8712-49ac0775b82a",
+		"tenantId": "d6a34b10-efc5-463b-84ea-026f23a2c963"
+	}
+}
