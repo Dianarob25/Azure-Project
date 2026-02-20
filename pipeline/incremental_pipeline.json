@@ -166,7 +166,11 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"container": "bronze",
-										"folder": "users"
+										"folder": "users",
+										"file": {
+											"value": "@concat(pipeline().parameters.table,'_',variables('currenttime'))",
+											"type": "Expression"
+										}
 									}
 								},
 								"enableLogging": true,
