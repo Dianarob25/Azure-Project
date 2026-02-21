@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "sqltolakecopy",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -141,7 +141,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Copy data1",
+						"activity": "sqltolakecopy",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -150,7 +150,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@greater(activity('Copy data1').output.dataRead,0)",
+						"value": "@greater(activity('sqltolakecopy').output.dataRead,0)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -222,7 +222,7 @@
 							}
 						},
 						{
-							"name": "Copy data2",
+							"name": "updatecdc",
 							"type": "Copy",
 							"dependsOn": [
 								{
