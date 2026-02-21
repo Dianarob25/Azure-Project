@@ -5,7 +5,14 @@
 			{
 				"name": "If Condition1",
 				"type": "IfCondition",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
@@ -163,7 +170,14 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "GetTables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"activities": [
@@ -303,6 +317,30 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "GetTables",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -320,6 +358,10 @@
 			},
 			"from_date": {
 				"type": "string"
+			},
+			"metadatatable": {
+				"type": "string",
+				"defaultValue": "IngestionMetadata"
 			}
 		},
 		"variables": {
