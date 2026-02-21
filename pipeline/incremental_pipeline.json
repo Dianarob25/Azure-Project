@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('GetTables').output.value",
+						"value": "@if{(empty(pipeline().parameters.TableList),activity('GetTables').output.value,filter(activity('GetTables').output.value,contains(pipeline().parameters.TableList,item().TableName)))}",
 						"type": "Expression"
 					},
 					"batchCount": 5,
@@ -364,6 +364,9 @@
 			"schema": {
 				"type": "string",
 				"defaultValue": "dbo"
+			},
+			"TableList": {
+				"type": "array"
 			}
 		},
 		"variables": {
