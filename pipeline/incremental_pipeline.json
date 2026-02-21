@@ -310,7 +310,8 @@
 				"defaultValue": "updated_at"
 			},
 			"from_date": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "2025-01-01"
 			}
 		},
 		"variables": {
