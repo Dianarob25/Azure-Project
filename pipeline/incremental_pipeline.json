@@ -5,11 +5,9 @@
 			{
 				"name": "If Condition1",
 				"type": "IfCondition",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
-						"activity": "ForEach1",
+						"activity": "copysqltoadlsinloop",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -170,10 +168,8 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "copysqltoadlsinloop",
 				"type": "ForEach",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "GetTables",
@@ -184,6 +180,11 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('GetTables').output.value",
+						"type": "Expression"
+					},
+					"batchCount": 5,
 					"activities": [
 						{
 							"name": "sqltolakecopy",
@@ -214,7 +215,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "select * from @{pipeline().parameters.schema}.@{pipeline().parameters.table} where @{pipeline().parameters.cdc_col} > '@{if(empty(pipeline().parameters.from_date),activity('last_cdc').output.value[0].cdc,pipeline().parameters.from_date)}'",
+										"value": "select * from @{item().SchemaName}.@{item().TableName} where @{item().CDCColumn} > '@{if(empty(pipeline().parameters.from_date),activity('last_cdc').output.value[0].cdc,pipeline().parameters.from_date)}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -293,7 +294,7 @@
 									"parameters": {
 										"container": "bronze",
 										"folder": {
-											"value": "@{pipeline().parameters.table}_cdc",
+											"value": "@item().TableName_cdc",
 											"type": "Expression"
 										},
 										"filename": "cdc.json"
