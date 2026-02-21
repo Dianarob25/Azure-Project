@@ -88,11 +88,11 @@
 									"parameters": {
 										"container": "bronze",
 										"folder": {
-											"value": "@pipeline().parameters.table",
+											"value": "@{item().TableName}",
 											"type": "Expression"
 										},
 										"file": {
-											"value": "@concat(pipeline().parameters.table,'_',variables('currenttime'))",
+											"value": "@concat(item().TableName,'_',variables('currenttime'))",
 											"type": "Expression"
 										}
 									}
@@ -129,7 +129,7 @@
 									"parameters": {
 										"container": "bronze",
 										"folder": {
-											"value": "@item().TableName_cdc",
+											"value": "@{item().TableName}_cdc",
 											"type": "Expression"
 										},
 										"filename": "cdc.json"
