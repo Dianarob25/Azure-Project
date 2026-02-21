@@ -364,9 +364,6 @@
 			"schema": {
 				"type": "string",
 				"defaultValue": "dbo"
-			},
-			"TableList": {
-				"type": "array"
 			}
 		},
 		"variables": {
