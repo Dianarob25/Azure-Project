@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@if{(empty(pipeline().parameters.TableList),activity('GetTables').output.value,filter(activity('GetTables').output.value,contains(pipeline().parameters.TableList,item().TableName)))}",
+						"value": "@activity('GetTables').output.value",
 						"type": "Expression"
 					},
 					"batchCount": 5,
