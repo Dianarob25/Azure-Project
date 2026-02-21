@@ -360,6 +360,10 @@
 			"metadatatable": {
 				"type": "string",
 				"defaultValue": "IngestionMetadata"
+			},
+			"schema": {
+				"type": "string",
+				"defaultValue": "dbo"
 			}
 		},
 		"variables": {
