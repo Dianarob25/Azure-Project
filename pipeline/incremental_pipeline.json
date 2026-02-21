@@ -354,18 +354,6 @@
 			}
 		],
 		"parameters": {
-			"schema": {
-				"type": "string",
-				"defaultValue": "dbo"
-			},
-			"table": {
-				"type": "string",
-				"defaultValue": "DimUser"
-			},
-			"cdc_col": {
-				"type": "string",
-				"defaultValue": "updated_at"
-			},
 			"from_date": {
 				"type": "string"
 			},
