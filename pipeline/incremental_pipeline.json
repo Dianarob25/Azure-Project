@@ -359,7 +359,8 @@
 					{
 						"activity": "copysqltoadlsinloop",
 						"dependencyConditions": [
-							"Failed"
+							"Failed",
+							"Succeeded"
 						]
 					}
 				],
